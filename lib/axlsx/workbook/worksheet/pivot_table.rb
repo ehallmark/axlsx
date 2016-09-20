@@ -214,7 +214,7 @@ module Axlsx
       if @styleInfo.present?
         str << '<pivotTableStyleInfo'
           @styleInfo.each do |k,v|
-            str << ' ' << k << '="' << v << '"'
+            str << ' ' << k.to_s << '="' << v.to_s << '"'
           end
         str << ' />'
       end
