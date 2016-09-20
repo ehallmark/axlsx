@@ -29,6 +29,9 @@ module Axlsx
       parse_options options
       yield self if block_given?
     end
+    
+    # Style info for the pivot table
+    attr_reader :styleInfo
 
     # The reference to the table data
     # @return [String]
@@ -210,7 +213,7 @@ module Axlsx
       # custom style
       if @styleInfo.present?
         str << '<pivotTableStyleInfo'
-          styleInfo.each do |k,v|
+          @styleInfo.each do |k,v|
             str << ' ' << k << '="' << v << '"'
           end
         str << ' />'
