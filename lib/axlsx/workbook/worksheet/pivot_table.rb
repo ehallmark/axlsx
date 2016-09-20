@@ -25,6 +25,7 @@ module Axlsx
       @data = []
       @pages = []
       @subtotal = nil
+      @styleInfo = options[:styleInfo]
       parse_options options
       yield self if block_given?
     end
@@ -206,7 +207,14 @@ module Axlsx
         end
         str << '</dataFields>'
       end
-      #str << '<pivotTableStyleInfo name="PivotStyleMedium9" showRowHeaders="1" showColHeaders="1" showRowStripes="0" showColStripes="0" showLastColumn="1"/>'
+      # custom style
+      if @styleInfo.present?
+        str << '<pivotTableStyleInfo'
+          styleInfo.each do |k,v|
+            str << ' ' << k << '="' << v << '"'
+          end
+        str << ' />'
+      end
       str << '</pivotTableDefinition>'
     end
 
