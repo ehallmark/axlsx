@@ -193,7 +193,7 @@ module Axlsx
       unless pages.empty?
         str << ('<pageFields count="' << pages.size.to_s << '">')
         pages.each do |page_value|
-          str << ('<pageField fld="' << header_index_of(page_value).to_s << '" val="approved" hier="-1"/>')
+          str << ('<pageField fld="' << header_index_of(page_value).to_s << '" hier="-1"/>')
         end
         str << '</pageFields>'
       end
@@ -206,7 +206,7 @@ module Axlsx
         end
         str << '</dataFields>'
       end
-      str << '<pivotTableStyleInfo showRowHeaders="1" showColHeaders="1" showRowStripes="0" showColStripes="0" showLastColumn="1"/>'
+      #str << '<pivotTableStyleInfo showRowHeaders="1" showColHeaders="1" showRowStripes="0" showColStripes="0" showLastColumn="1"/>'
       str << '</pivotTableDefinition>'
     end
 
@@ -248,7 +248,7 @@ module Axlsx
       elsif columns.include? cell_ref
         '<pivotField axis="axisCol" compact="0" outline="0" subtotalTop="0" showAll="0" includeNewItemsInFilter="1">' + '<items count="1"><item t="default"/></items>' + '</pivotField>'
       elsif pages.include? cell_ref
-        '<pivotField axis="axisPage" compact="0" outline="0" subtotalTop="0" showAll="0" includeNewItemsInFilter="1">' + '<items count="1"><item t="default"/></items>' + '</pivotField>'
+        '<pivotField axis="axisRow" compact="0" outline="0" subtotalTop="0" showAll="0" includeNewItemsInFilter="1">' + '<items count="1"><item t="default"/></items>' + '</pivotField>'
       elsif data_refs.include? cell_ref
         '<pivotField dataField="1" compact="0" outline="0" subtotalTop="0" showAll="0" includeNewItemsInFilter="1">' + '</pivotField>'
       else
