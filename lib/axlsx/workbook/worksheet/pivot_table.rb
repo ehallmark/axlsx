@@ -177,7 +177,7 @@ module Axlsx
         str << ('<rowFields count="' << rows.size.to_s << '">')
         rows.each do |row_value|
           #str << ('<field x="' << header_index_of(row_value).to_s << '"/>')
-          str << ('<field subtotals="0" x="' << header_index_of(row_value).to_s << '"/>')
+          str << ('<field x="' << header_index_of(row_value).to_s << '"/>')
         end
         str << '</rowFields>'
         str << ('<rowItems count="' << rows.size.to_s << '">')
@@ -257,7 +257,7 @@ module Axlsx
     def pivot_field_for(cell_ref)
       if rows.include? cell_ref
         #'<pivotField axis="axisRow" compact="0" outline="0" subtotalTop="0" showAll="0" includeNewItemsInFilter="1">' + '<items count="1"><item t="default"/></items>' + '</pivotField>'
-        '<pivotField axis="axisRow" compact="0" outline="0" subtotalTop="0" showAll="0" includeNewItemsInFilter="1">' + '<items count="1"><item t="grand"/></items>' + '</pivotField>'
+        '<pivotField axis="axisRow" compact="0" outline="0" subtotalTop="0" showAll="0" includeNewItemsInFilter="1">' + '<items count="1"><item /></items>' + '</pivotField>'
       elsif columns.include? cell_ref
         '<pivotField axis="axisCol" compact="0" outline="0" subtotalTop="0" showAll="0" includeNewItemsInFilter="1">' + '<items count="1"><item t="default"/></items>' + '</pivotField>'
       elsif pages.include? cell_ref
