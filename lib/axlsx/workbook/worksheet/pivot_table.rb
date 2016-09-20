@@ -206,7 +206,7 @@ module Axlsx
         end
         str << '</dataFields>'
       end
-      str << '<pivotTableStyleInfo showRowHeaders="1" showColHeaders="1" showRowStripes="0" showColStripes="0" showLastColumn="1"//>'
+      str << '<pivotTableStyleInfo showRowHeaders="1" showColHeaders="1" showRowStripes="0" showColStripes="0" showLastColumn="1"/>'
       str << '</pivotTableDefinition>'
     end
 
