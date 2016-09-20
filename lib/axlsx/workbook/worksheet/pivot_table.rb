@@ -193,14 +193,14 @@ module Axlsx
       unless pages.empty?
         str << ('<pageFields count="' << pages.size.to_s << '">')
         pages.each do |page_value|
-          str << ('<pageField fld="' << header_index_of(page_value).to_s << '"/>')
+          str << ('<pageField fld="' << header_index_of(page_value).to_s << '" hier="-1"/>')
         end
         str << '</pageFields>'
       end
       unless data.empty?
         str << "<dataFields count=\"#{data.size}\">"
         data.each do |datum_value|
-          str << "<dataField name='#{@subtotal} of #{datum_value[:ref]}' fld='#{header_index_of(datum_value[:ref])}' baseField='0' baseItem='0'"
+          str << "<dataField name='#{(datum_value[:subtotal]||'').titleize} of #{datum_value[:ref]}' fld='#{header_index_of(datum_value[:ref])}' baseField='0' baseItem='0'"
           str << " subtotal='#{datum_value[:subtotal]}' " if datum_value[:subtotal]
           str << "/>"
         end
