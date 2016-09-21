@@ -265,8 +265,7 @@ module Axlsx
       elsif columns.include? cell_ref
         '<pivotField axis="axisCol" compact="0" outline="0" subtotalTop="0" showAll="0" includeNewItemsInFilter="1">' + '<items count="1"><item t="default"/></items>' + '</pivotField>'
       elsif pages.include? cell_ref
-        '<pivotField axis="axisPage" compact="0" outline="0" subtotalTop="0" multipleItemSelectionAllowed="1" showAll="0" includeNewItemsInFilter="1"><items count="3"><item h="1" x="0"/><item x="1"/><item t="default"/></items></pivotField>'
-        #'<pivotField axis="axisPage" compact="0" outline="0" subtotalTop="0" showAll="0" multipleItemSelectionAllowed="1" includeNewItemsInFilter="1">' + '<items count="1"><item t="default"/></items>' + '</pivotField>'
+        '<pivotField axis="axisPage" compact="0" outline="0" subtotalTop="0" showAll="0" multipleItemSelectionAllowed="1" includeNewItemsInFilter="1">' + '<items count="1"><item t="default"/></items>' + '</pivotField>'
       elsif data_refs.include? cell_ref
         '<pivotField dataField="1" compact="0" outline="0" subtotalTop="0" showAll="0" includeNewItemsInFilter="1">' + '</pivotField>'
       else
