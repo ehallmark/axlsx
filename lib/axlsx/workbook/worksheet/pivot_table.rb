@@ -163,7 +163,7 @@ module Axlsx
     # @return [String]
     def to_xml_string(str = '')
       str << '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
-      str << ('<pivotTableDefinition xmlns="' << XML_NS << '" name="' << name << '" cacheId="' << cache_definition.cache_id.to_s << '"  dataOnRows="0" applyNumberFormats="0" applyBorderFormats="0" applyFontFormats="0" applyPatternFormats="0" applyAlignmentFormats="0" applyWidthHeightFormats="1" dataCaption="Data" showMultipleLabel="0" showMemberPropertyTips="0" useAutoFormatting="1" indent="0" compact="0" compactData="0" gridDropZones="1" multipleFieldFilters="0">')
+      str << ('<pivotTableDefinition xmlns="' << XML_NS << '" name="' << name << '" cacheId="' << cache_definition.cache_id.to_s << '"  dataOnRows="1" applyNumberFormats="0" applyBorderFormats="0" applyFontFormats="0" applyPatternFormats="0" applyAlignmentFormats="0" applyWidthHeightFormats="1" dataCaption="Data" showMultipleLabel="0" showMemberPropertyTips="0" useAutoFormatting="1" indent="0" compact="0" compactData="0" gridDropZones="1" multipleFieldFilters="0">')
       str << (  '<location firstDataCol="1" firstDataRow="1" firstHeaderRow="1" ref="' << ref << '"/>')
       str << (  '<pivotFields count="' << header_cells_count.to_s << '">')
       header_cell_values.each do |cell_value|
@@ -177,7 +177,7 @@ module Axlsx
         str << ('<rowFields count="' << rows.size.to_s << '">')
         rows.each do |row_value|
           #str << ('<field x="' << header_index_of(row_value).to_s << '"/>')
-          str << ('<field x="' << header_index_of(row_value).to_s << '"/>')
+          str << ('<field subtotal="none" x="' << header_index_of(row_value).to_s << '"/>')
         end
         str << '</rowFields>'
         str << ('<rowItems count="' << rows.size.to_s << '">')
