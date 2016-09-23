@@ -177,7 +177,7 @@ module Axlsx
         str << ('<rowFields count="' << rows.size.to_s << '">')
         rows.each do |row_value|
           #str << ('<field x="' << header_index_of(row_value).to_s << '"/>')
-          str << ('<field subtotal="none" x="' << header_index_of(row_value).to_s << '"/>')
+          str << ('<field x="' << header_index_of(row_value).to_s << '"/>')
         end
         str << '</rowFields>'
         str << ('<rowItems count="' << rows.size.to_s << '">')
