@@ -25,8 +25,8 @@ module Axlsx
       @data = []
       @pages = []
       @subtotal = nil
-      @styleInfo = options[:styleInfo]
-      @noSubtotalOnRows = options[:noSubtotalOnRows]
+      @styleInfo = options[:styleInfo] || {}
+      @noSubtotalOnRows = options[:noSubtotalOnRows] || []
       parse_options options
       yield self if block_given?
     end
