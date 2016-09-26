@@ -168,9 +168,7 @@ module Axlsx
       str << (  '<location firstDataCol="1" firstDataRow="1" firstHeaderRow="1" ref="' << ref << '"/>')
       str << (  '<pivotFields count="' << header_cells_count.to_s << '">')
       header_cell_values.each do |cell_value|
-        puts cell_value
-        puts @noSubtotalOnRows.include?(cell_value)
-        str <<   pivot_field_for(cell_value,@noSubtotalOnRows.include?(cell_value))
+        str <<   pivot_field_for(cell_value,!@noSubtotalOnRows.include?(cell_value))
       end
       str <<   '</pivotFields>'
       if rows.empty?
@@ -259,11 +257,11 @@ module Axlsx
 
     def pivot_field_for(cell_ref, subtotal=true)
       if rows.include? cell_ref
-        #unless subtotal
+        unless subtotal
           '<pivotField axis="axisRow" compact="0" outline="0" subtotalTop="0" showAll="0" includeNewItemsInFilter="1" defaultSubtotal="0">' + '</pivotField>'
-        #else 
-        #  '<pivotField axis="axisRow" compact="0" outline="0" subtotalTop="0" showAll="0" includeNewItemsInFilter="1">' + '<items count="1"><item t="default"/></items>' + '</pivotField>'
-        #end
+        else 
+          '<pivotField axis="axisRow" compact="0" outline="0" subtotalTop="0" showAll="0" includeNewItemsInFilter="1">' + '<items count="1"><item t="default"/></items>' + '</pivotField>'
+        end
       elsif columns.include? cell_ref
         '<pivotField axis="axisCol" compact="0" outline="0" subtotalTop="0" showAll="0" includeNewItemsInFilter="1">' + '<items count="1"><item t="default"/></items>' + '</pivotField>'
       elsif pages.include? cell_ref
