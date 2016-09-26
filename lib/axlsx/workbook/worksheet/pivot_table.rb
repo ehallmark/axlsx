@@ -168,6 +168,8 @@ module Axlsx
       str << (  '<location firstDataCol="1" firstDataRow="1" firstHeaderRow="1" ref="' << ref << '"/>')
       str << (  '<pivotFields count="' << header_cells_count.to_s << '">')
       header_cell_values.each do |cell_value|
+        puts cell_value
+        puts @noSubtotalOnRows.include?(cell_value)
         str <<   pivot_field_for(cell_value,@noSubtotalOnRows.include?(cell_value))
       end
       str <<   '</pivotFields>'
