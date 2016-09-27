@@ -212,7 +212,7 @@ module Axlsx
         data.each do |datum_value|
           # The correct name prefix in ["Sum","Average", etc...]
           str << "<dataField name=\"#{(datum_value[:subtotal]||'').titleize} of #{datum_value[:ref]}\" fld=\"#{header_index_of(datum_value[:ref])}\" baseField=\"0\" baseItem=\"0\""
-          #str << " subtotal=\"#{datum_value[:subtotal]}\" " if datum_value[:subtotal]
+          str << " subtotal=\"#{datum_value[:subtotal]}\" " if datum_value[:subtotal]
           str << "/>"
         end
         str << '</dataFields>'
