@@ -25,15 +25,19 @@ module Axlsx
       @data = []
       @pages = []
       @subtotal = nil
-      @styleInfo = options[:styleInfo] || {}
-      @noSubtotalOnRows = options[:noSubtotalOnRows] || []
+      @style_info = {}
+      @no_subtotals_on_headers = []
       parse_options options
       yield self if block_given?
     end
     
     # Style info for the pivot table
-    attr_reader :styleInfo
-
+    attr_accessor :style_info
+    
+    
+    # Defines the headers in which subtotals are not to be included
+    attr_accessor :no_subtotals_on_headers
+    
     # The reference to the table data
     # @return [String]
     attr_reader :ref
@@ -168,7 +172,7 @@ module Axlsx
       str << (  '<location firstDataCol="1" firstDataRow="1" firstHeaderRow="1" ref="' << ref << '"/>')
       str << (  '<pivotFields count="' << header_cells_count.to_s << '">')
       header_cell_values.each do |cell_value|
-        str <<   pivot_field_for(cell_value,!@noSubtotalOnRows.include?(cell_value))
+        str <<   pivot_field_for(cell_value,!no_subtotals_on_headers.include?(cell_value))
       end
       str <<   '</pivotFields>'
       if rows.empty?
@@ -206,6 +210,7 @@ module Axlsx
       unless data.empty?
         str << "<dataFields count=\"#{data.size}\">"
         data.each do |datum_value|
+          # The correct name prefix in ["Sum","Average", etc...]
           str << "<dataField name=\"#{(datum_value[:subtotal]||'').titleize} of #{datum_value[:ref]}\" fld=\"#{header_index_of(datum_value[:ref])}\" baseField=\"0\" baseItem=\"0\""
           #str << " subtotal=\"#{datum_value[:subtotal]}\" " if datum_value[:subtotal]
           str << "/>"
@@ -213,9 +218,9 @@ module Axlsx
         str << '</dataFields>'
       end
       # custom style
-      if @styleInfo.present?
+      if style_info.present?
         str << '<pivotTableStyleInfo'
-          @styleInfo.each do |k,v|
+          style_info.each do |k,v|
             str << ' ' << k.to_s << '="' << v.to_s << '"'
           end
         str << ' />'
@@ -266,7 +271,6 @@ module Axlsx
         '<pivotField axis="axisCol" compact="0" outline="0" subtotalTop="0" showAll="0" includeNewItemsInFilter="1">' + '<items count="1"><item t="default"/></items>' + '</pivotField>'
       elsif pages.include? cell_ref
         '<pivotField axis="axisPage" currentPage="approved" compact="0" outline="0" subtotalTop="0" showAll="0" includeNewItemsInFilter="1">' + '<items count="1"><item t="default"/></items>' + '</pivotField>'
-        #'<pivotField axis="axisPage" compact="0" outline="0" subtotalTop="0" showAll="0" includeNewItemsInFilter="1">' + '<items count="1"><item t="default"/></items>' + '</pivotField>'
       elsif data_refs.include? cell_ref
         '<pivotField dataField="1" compact="0" outline="0" subtotalTop="0" showAll="0" includeNewItemsInFilter="1">' + '</pivotField>'
       else
